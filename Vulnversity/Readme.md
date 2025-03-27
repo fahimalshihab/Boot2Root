@@ -194,6 +194,8 @@ function printit ($string) {
 Listener: `nc -lvnp 3333`
 
 
+## Privilege Escalation
+
 now On the system, search for all SUID files. Which file stands out?
 
 `find / -perm -u=s -type f 2>/dev/null`
