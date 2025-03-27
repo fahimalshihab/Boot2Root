@@ -17,15 +17,15 @@ nmap -A -p- -oN nmap_full.txt [Target IP]     # Aggressive scan
 
 ### **Web Enumeration**
 ```bash
-gobuster dir -u http://[Target IP] -w /usr/share/wordlists/dirb/common.txt -x .php,.txt,.html
+gobuster dir -e -u http://10.10.181.27 -w /home/iftx/Desktop/Room/wordlist/common.txt -x .php,.txt,.js,.html
 subfinder -d [Target Domain]     # Find subdomains
 amass enum -d [Target Domain]    # Active enumeration
 ```
 
 ### **Service Enumeration**
 ```bash
-hydra -l [username] -P [wordlist] [service]://[Target IP]  # Brute-force login
-searchsploit [Service/Version]  # Check for known vulnerabilities
+hydra -l jan -P /home/iftx/Desktop/Room/wordlist/rockyou.txt 10.10.181.27 ssh
+
 ```
 
 ---
