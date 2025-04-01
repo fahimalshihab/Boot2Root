@@ -219,41 +219,42 @@
 
 # Finding Web Directories - Cheat Sheet
 
-### 1. **Using `dirb` (Directory Buster)**
+### 1. **Using `gobuster`**
 - **Basic command:**
   ```bash
-  dirb http://10.10.195.158
+  gobuster dir -u http://10.10.195.158 -w /home/iftx/Desktop/Hacking/Recon/wordlist/common.txt
   ```
 
-### 2. **Using `gobuster`**
+### 2. **Using `ffuf` (Fuzz Faster U Fool)**
 - **Basic command:**
   ```bash
-  gobuster dir -u http://10.10.195.158 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+  ffuf -u http://10.10.195.158/FUZZ -w /home/iftx/Desktop/Hacking/Recon/wordlist/common.txt
   ```
 
-### 3. **Using `nikto` for Web Scanning**
+### 3. **Using `dirb` (Directory Buster)**
+- **Basic command:**
+  ```bash
+  dirb http://10.10.195.158 /home/iftx/Desktop/Hacking/Recon/wordlist/common.txt
+  ```
+
+### 4. **Using `nikto` for Web Scanning**
 - **Basic command:**
   ```bash
   nikto -h http://10.10.195.158
   ```
 
-### 4. **Using `wfuzz` (Web Fuzzer)**
+### 5. **Using `wfuzz` (Web Fuzzer)**
 - **Basic command:**
   ```bash
-  wfuzz -c -z file,/usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -u http://10.10.195.158/FUZZ
+  wfuzz -c -z file,/home/iftx/Desktop/Hacking/Recon/wordlist/common.txt -u http://10.10.195.158/FUZZ
   ```
 
-### 5. **Using Nmap with `http-enum` Script**
+### 6. **Using Nmap with `http-enum` Script**
 - **Command:**
   ```bash
   nmap --script http-enum -p 80 10.10.195.158
   ```
 
-### 6. **Using `ffuf` (Fuzz Faster U Fool)**
-- **Basic command:**
-  ```bash
-  ffuf -u http://10.10.195.158/FUZZ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
-  ```
 
 
 </details>
