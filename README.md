@@ -124,6 +124,94 @@
 
 </details>
 
+
+
+
+
+
+<details>
+  <summary>
+
+  ### Common Ports and Vulnerabilities Cheat Sheet
+
+  </summary>
+</details>
+
+## Port Ranges
+- **Well-Known Ports (0-1023):** Reserved for system processes and well-known services.
+- **Registered Ports (1024-49151):** Assigned by IANA for user applications.
+- **Dynamic/Private Ports (49152-65535):** Used for temporary or custom connections.
+
+## Commonly Used Ports & Associated Services
+| Port | Service | Description | Common Vulnerabilities |
+|------|---------|-------------|------------------------|
+| 21   | FTP     | File Transfer Protocol | Anonymous login, brute-force attacks, clear-text transmission |
+| 22   | SSH     | Secure Shell | Weak credentials, outdated versions, brute-force |
+| 23   | Telnet  | Unencrypted Remote Login | Clear-text transmission, credential theft |
+| 25   | SMTP    | Simple Mail Transfer Protocol | Open relays, spam abuse |
+| 53   | DNS     | Domain Name System | DNS spoofing, cache poisoning, amplification attacks |
+| 80   | HTTP    | Web Traffic | XSS, SQL Injection, Directory Traversal |
+| 110  | POP3    | Email Retrieval | Clear-text credentials, brute-force |
+| 135  | RPC     | Remote Procedure Call | DCOM/RPC exploits, lateral movement |
+| 139  | NetBIOS | Windows File Sharing | SMB relay attacks, enumeration |
+| 143  | IMAP    | Internet Message Access Protocol | Brute-force, credential leaks |
+| 443  | HTTPS   | Secure Web Traffic | SSL vulnerabilities (Heartbleed, TLS downgrade) |
+| 445  | SMB     | Windows File Sharing | EternalBlue, SMBGhost, WannaCry |
+| 3306 | MySQL   | Database | SQL injection, weak credentials |
+| 3389 | RDP     | Remote Desktop Protocol | Brute-force, BlueKeep exploit |
+
+## Common Vulnerabilities by Service Type
+### Web Services (80, 443)
+- SQL Injection
+- Cross-Site Scripting (XSS)
+- Directory Traversal
+- Remote Code Execution (RCE)
+
+### File Transfer & Sharing (21, 139, 445)
+- Anonymous authentication
+- SMB relay attack
+- Ransomware infection via SMB vulnerabilities
+
+### Email Services (25, 110, 143)
+- Open relay abuse
+- Phishing & spoofing attacks
+- Credential brute-forcing
+
+### Remote Access (22, 23, 3389)
+- Weak authentication
+- Brute-force attacks
+- Man-in-the-middle (MITM) attacks
+
+Would you like any modifications or additions? 🚀
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <details>
 <summary>
   
