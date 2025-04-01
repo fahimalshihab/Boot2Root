@@ -227,13 +227,17 @@
 
 ### 2. **Using `ffuf` (Fuzz Faster U Fool)**
 - **Basic command:**
-  ```bash
+
+```bash
   ffuf -u http://10.10.195.158/FUZZ -w /home/iftx/Desktop/Hacking/Recon/wordlist/common.txt
   ```
 
-  ```bash
+```bash
   ffuf -u https://example.com/FUZZ -w /path/to/wordlist.txt -t 5 -p 0.5 -e .php,.html,.txt -fc 403,404
+
  ```
+
+
 
 
 ### 3. **Using `dirb` (Directory Buster)**
