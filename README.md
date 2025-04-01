@@ -135,7 +135,6 @@
   ### Common Ports and Vulnerabilities Cheat Sheet
 
   </summary>
-</details>
 
 ## Port Ranges
 - **Well-Known Ports (0-1023):** Reserved for system processes and well-known services.
@@ -182,7 +181,7 @@
 - Brute-force attacks
 - Man-in-the-middle (MITM) attacks
 
-Would you like any modifications or additions? 🚀
+</details>
 
 
 
