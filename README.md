@@ -10,6 +10,9 @@
 
   </summary>
 
+```nmap -A -sC -sV -oN nmap.txt IP```
+
+
 ## Most Common Commands for Pentesters & Bug Hunters
 - **Full Network Recon (Aggressive Scan with OS & Version Detection):**
   ```bash
