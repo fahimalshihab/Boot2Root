@@ -2,15 +2,128 @@
 
 
 ## **Enumeration**
-### **Network Scanning**
-```bash
-nmap -sn [Subnet]     nmap -sn 192.168.80.0/24          # Ping sweep for live hosts
 
-nmap -sC -sV -oN nmap_initial.txt [Target IP]  # Basic scan
+<details>
+  <summary>
+    
+### Nmap Network Scanning
 
-nmap -A -p- -oN nmap_full.txt [Target IP]     # Aggressive scan
+  </summary>
 
-```
+## Most Common Commands for Pentesters & Bug Hunters
+- **Full Network Recon (Aggressive Scan with OS & Version Detection):**
+  ```bash
+  nmap -A -T4 192.168.1.1
+  ```
+- **Quick Scan of Most Common Ports:**
+  ```bash
+  nmap -F 192.168.1.1
+  ```
+- **Full Port Scan + Service Detection:**
+  ```bash
+  nmap -p- -sV 192.168.1.1
+  ```
+- **Detect Live Hosts in a Network:**
+  ```bash
+  nmap -sn 192.168.1.0/24
+  ```
+- **Scan for Vulnerabilities (NSE Scripts):**
+  ```bash
+  nmap --script vuln 192.168.1.1
+  ```
+- **Bypass Firewall & Stealth Scan:**
+  ```bash
+  nmap -sS -T3 -D RND:10 192.168.1.1
+  ```
+
+## Basic Scans
+- **Scan a single target:**  
+  `nmap 192.168.1.1`
+- **Scan multiple targets:**  
+  `nmap 192.168.1.1 192.168.1.2`
+- **Scan an entire subnet:**  
+  `nmap 192.168.1.0/24`
+- **Scan from a file list:**  
+  `nmap -iL targets.txt`
+- **No ping scan (for firewalled hosts):**  
+  `nmap -Pn 192.168.1.1`
+
+## Port Scanning
+- **Scan all 65,535 ports:**  
+  `nmap -p- 192.168.1.1`
+- **Scan specific ports:**  
+  `nmap -p 22,80,443 192.168.1.1`
+- **Scan a port range:**  
+  `nmap -p 1-1000 192.168.1.1`
+- **Scan top 1000 most common ports:**  
+  `nmap --top-ports 1000 192.168.1.1`
+
+## Scan Techniques
+- **TCP SYN scan (stealthy, default for root):**  
+  `nmap -sS 192.168.1.1`
+- **TCP Connect scan (for non-root users):**  
+  `nmap -sT 192.168.1.1`
+- **UDP scan:**  
+  `nmap -sU 192.168.1.1`
+- **Aggressive scan (OS, versions, scripts, traceroute):**  
+  `nmap -A 192.168.1.1`
+- **Scan with OS detection:**  
+  `nmap -O 192.168.1.1`
+
+## Service & Version Detection
+- **Detect running services & versions:**  
+  `nmap -sV 192.168.1.1`
+- **Aggressive version detection:**  
+  `nmap -sV --version-intensity 5 192.168.1.1`
+
+## Firewall Evasion & Stealth
+- **Change scan timing (1-5, slow to fast):**  
+  `nmap -T4 192.168.1.1`
+- **Use decoys to hide real IP:**  
+  `nmap -D RND:10 192.168.1.1`
+- **Spoof source IP:**  
+  `nmap -S 192.168.1.100 192.168.1.1`
+- **Fragment packets to bypass filters:**  
+  `nmap -f 192.168.1.1`
+- **Use a custom MAC address:**  
+  `nmap --spoof-mac 00:11:22:33:44:55 192.168.1.1`
+
+## Nmap Scripting Engine (NSE)
+- **List available scripts:**  
+  `nmap --script-help=default`
+- **Scan for vulnerabilities:**  
+  `nmap --script vuln 192.168.1.1`
+- **Scan for common exploits:**  
+  `nmap --script exploit 192.168.1.1`
+- **Scan for web vulnerabilities:**  
+  `nmap --script=http-vuln* 192.168.1.1`
+- **Detect open directories:**  
+  `nmap --script http-enum 192.168.1.1`
+
+## Saving & Exporting Scan Results
+- **Save results in normal text format:**  
+  `nmap -oN scan.txt 192.168.1.1`
+- **Save results in XML format:**  
+  `nmap -oX scan.xml 192.168.1.1`
+- **Save results in all formats:**  
+  `nmap -oA scan_results 192.168.1.1`
+- **View output in grep-friendly format:**  
+  `nmap -oG scan.gnmap 192.168.1.1`
+
+## Specialized Scans
+- **Scan for live hosts only:**  
+  `nmap -sn 192.168.1.0/24`
+- **Detect SMB vulnerabilities:**  
+  `nmap --script smb-vuln* -p 445 192.168.1.1`
+- **Enumerate SNMP information:**  
+  `nmap -sU -p 161 --script=snmp-info 192.168.1.1`
+- **Brute-force FTP login:**  
+  `nmap --script=ftp-brute -p 21 192.168.1.1`
+
+
+
+</details>
+
 
 ### **Web Enumeration**
 ```bash
