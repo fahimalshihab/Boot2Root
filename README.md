@@ -270,11 +270,104 @@
 
 
 
+<details>
+  <summary>
+
+  ### **SMB Enumeration Cheat Sheet**
+    
+  </summary>
 
 
+#### **1️⃣ Nmap SMB Enumeration**
+```bash
+nmap --script smb-enum-shares,smb-enum-users -p 139,445 <target-IP>
+```
+- Enumerates **SMB users & shares**.
+
+```bash
+nmap --script smb-vuln* -p 139,445 <target-IP>
+```
+- Checks **SMB vulnerabilities**.
+
+---
+
+#### **2️⃣ smbclient - Access SMB Shares**
+```bash
+smbclient -L //<target-IP> -U ""
+```
+- Lists available shares **without authentication**.
+
+```bash
+smbclient //<target-IP>/share -U user
+```
+- Connects to a **specific share**.
+
+---
+
+#### **3️⃣ smbmap - Check Share Access**
+```bash
+smbmap -H <target-IP>
+```
+- Checks **read/write access**.
+
+```bash
+smbmap -H <target-IP> -R
+```
+- Recursively **lists all files**.
+
+---
+
+#### **4️⃣ CrackMapExec (CME) - SMB Enumeration**
+```bash
+cme smb <target-IP> --shares
+```
+- Lists **shared folders**.
+
+```bash
+cme smb <target-IP> -u user -p password --shares
+```
+- Enumerates shares **with credentials**.
+
+---
+
+#### **5️⃣ Enum4linux - SMB Enumeration**
+```bash
+enum4linux -a <target-IP>
+```
+- Performs **all** enumeration techniques.
+
+```bash
+enum4linux -U <target-IP>   # List users  
+enum4linux -S <target-IP>   # List shared folders  
+```
+
+---
+
+#### **6️⃣ rpcclient - Windows RPC Services**
+```bash
+rpcclient -U "" <target-IP>
+```
+- Connects to **SMB RPC services** without authentication.
+
+```bash
+rpcclient -U user <target-IP>
+> enumdomusers
+```
+- Enumerates **domain users**.
+
+---
+
+### ✅ **Best SMB Enumeration Workflow**
+1️⃣ **Check open SMB ports** → `nmap -p 139,445 <IP>`  
+2️⃣ **Enumerate shares & users** → `nmap --script smb-enum-shares,smb-enum-users -p 139,445 <IP>`  
+3️⃣ **Try accessing shares** → `smbclient -L //<IP> -U ""`  
+4️⃣ **Check permissions** → `smbmap -H <IP>`  
+5️⃣ **Look for vulnerabilities** → `nmap --script smb-vuln* -p 139,445 <IP>`  
+
+🚀 **Use these tools responsibly for pentesting & bug bounty engagements!**
 
 
-
+</details>
 
 <details>
 <summary>
