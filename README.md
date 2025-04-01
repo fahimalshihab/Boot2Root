@@ -210,6 +210,58 @@
 
 
 
+<details>
+  <summary>
+
+
+  ### Find Directories 
+  </summary>
+
+# Finding Web Directories - Cheat Sheet
+
+### 1. **Using `dirb` (Directory Buster)**
+- **Basic command:**
+  ```bash
+  dirb http://10.10.195.158
+  ```
+
+### 2. **Using `gobuster`**
+- **Basic command:**
+  ```bash
+  gobuster dir -u http://10.10.195.158 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+  ```
+
+### 3. **Using `nikto` for Web Scanning**
+- **Basic command:**
+  ```bash
+  nikto -h http://10.10.195.158
+  ```
+
+### 4. **Using `wfuzz` (Web Fuzzer)**
+- **Basic command:**
+  ```bash
+  wfuzz -c -z file,/usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -u http://10.10.195.158/FUZZ
+  ```
+
+### 5. **Using Nmap with `http-enum` Script**
+- **Command:**
+  ```bash
+  nmap --script http-enum -p 80 10.10.195.158
+  ```
+
+### 6. **Using `ffuf` (Fuzz Faster U Fool)**
+- **Basic command:**
+  ```bash
+  ffuf -u http://10.10.195.158/FUZZ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+  ```
+
+
+</details>
+
+
+
+
+
 
 
 
