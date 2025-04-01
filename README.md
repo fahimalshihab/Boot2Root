@@ -124,8 +124,12 @@
 
 </details>
 
+<details>
+<summary>
+  
+  ### **Web Enumeration**
 
-### **Web Enumeration**
+</summary>
 ```bash
 gobuster dir -e -u http://10.10.181.27 -w /home/iftx/Desktop/Room/wordlist/common.txt -x .php,.txt,.js,.html
 
@@ -139,6 +143,9 @@ amass enum -d [Target Domain]    # Active enumeration
 hydra -l user_ name -P /home/iftx/Desktop/Room/wordlist/rockyou.txt 10.10.181.27 ssh
 
 ```
+  
+</details>
+
 
 ## Metasploit
 
