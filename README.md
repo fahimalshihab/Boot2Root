@@ -521,7 +521,9 @@ Need a deeper exploit? Let me know! 🔥
 
 <details>
   <summary>
-  Privilege Escalation via Misconfigured setuid Binary (systemctl)
+
+    
+  ### Privilege Escalation via Misconfigured setuid Binary (systemctl)
     
   </summary>
 
