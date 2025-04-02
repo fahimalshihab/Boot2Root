@@ -907,7 +907,7 @@ chmod 600 id_rsa && ssh -i id_rsa user@target
 <details>
   <summary>
 
-  # Advanced PHP Reverse Shells & TTY Stabilization
+  ### Advanced PHP Reverse Shells & TTY Stabilization
 
   </summary>
 
