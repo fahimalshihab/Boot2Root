@@ -469,23 +469,6 @@ skyfuck:8730281lkjlkjdqlksalks
   
 </details>
 
-## Shell
-<details>
-  <summary>
-    
-### Automated File Reading with find + while Loop
-
-  </summary>
-
-If cat is disabled but you have bash or sh, you can read all files recursively:
-
-```bash
-find / -type f -name "*.txt" -exec sh -c 'echo "File: {}"; while IFS= read -r line; do echo "$line"; done < {}' \; 2>/dev/null
-```
-This will list and print all .txt files on the system.
-
-Modify -name "*.txt" to target other extensions (e.g., *.php, *.bak).
-</details>
 
 ## Privilege Escalation
 
@@ -560,4 +543,22 @@ Monitor for unusual service activations
 
 </details>
 
+
+## Shell
+<details>
+  <summary>
+    
+### Automated File Reading with find + while Loop
+
+  </summary>
+
+If cat is disabled but you have bash or sh, you can read all files recursively:
+
+```bash
+find / -type f -name "*.txt" -exec sh -c 'echo "File: {}"; while IFS= read -r line; do echo "$line"; done < {}' \; 2>/dev/null
+```
+This will list and print all .txt files on the system.
+
+Modify -name "*.txt" to target other extensions (e.g., *.php, *.bak).
+</details>
 
