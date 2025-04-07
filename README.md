@@ -480,6 +480,7 @@ skyfuck:8730281lkjlkjdqlksalks
   ### Privilege Escalation via Sudo Vi (CVE-2019-14287)
   
   </summary>
+  
 ### **1. Checking Sudo Permissions**
 Ran `sudo -l` and found:
 ```bash
